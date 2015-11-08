@@ -3,7 +3,7 @@ var gulp=require('gulp'),
     concat=require('gulp-concat'),
     uglify = require('gulp-uglify'),
     BUILD_JSON=require('./build.json'),
-    REPO_NAME='polymer-elliptical-behaviors',
+    REPO_NAME='elliptical-behaviors',
     BUNDLE='./bundle',
     DIST='./dist';
 
@@ -18,7 +18,7 @@ gulp.task('build',function(){
 
 gulp.task('demo',function(){
     fileStream('./bower_components/**/*.*','./demo/components');
-    fileStream('.bundle/**/*.*','./demo/components/elliptical-behaviors/bundle');
+    fileStream('./bundle/**/*.*','./demo/components/elliptical-behaviors/bundle');
     fileStream('./component-behavior.html','./demo/components/elliptical-behaviors');
     fileStream('./observable-behavior.html','./demo/components/elliptical-behaviors');
     fileStream('./dist/webcomponents-lite.js','./demo/scripts');
