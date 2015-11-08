@@ -1,12 +1,12 @@
 {
-  "name": "polymer-elliptical-behaviors",
-  "description": "Elliptical behavior mixins for Polymer components",
+  "name": "elliptical-behaviors",
+  "description": "Elliptical behaviors for Polymer components",
   "version": "1.0.0",
   "author": "S. Francis",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tachyon1337/polymer-elliptical-behaviors.git"
+    "url": "https://github.com/tachyon1337/elliptical-behaviors.git"
   },
   "dependencies":{
     "jquery-extensions": "git+https://github.com/tachyon1337/jquery-extensions.git",
