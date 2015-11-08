@@ -1,0 +1,12 @@
+[
+
+  "./node_modules/elliptical-utils/dist/elliptical.utils.js",
+  "./node_modules/observable-component/dist/jquery.js",
+  "./node_modules/observable-component/dist/mutation-summary.js",
+  "./node_modules/observable-component/dist/moment.js",
+  "./node_modules/observable-component/dist/dust.js",
+  "./node_modules/elliptical-event/dist/elliptical.event.js",
+  "./node_modules/elliptical-container/dist/elliptical.container.js",
+  "./node_modules/observable-component/dist/observable.component.js",
+  "./node_modules/observable-component/dist/styles.css"
+]

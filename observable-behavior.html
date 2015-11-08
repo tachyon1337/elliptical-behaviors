@@ -1,0 +1,109 @@
+<link rel="import" href="component-behavior.html">
+<script>
+    Elliptical.ObservableBehavior=Elliptical.ComponentBehavior;
+    Object.assign(Elliptical.ObservableBehavior,elliptical.observable.cache,elliptical.observable.pubsub,elliptical.observable.scope,elliptical.observable.template);
+
+    Elliptical.ObservableBehavior.properties={
+
+        idProp:{
+            type:String,
+            value:'id'
+        },
+
+        scopeBind:{
+            type:Boolean,
+            value:true
+        },
+
+        objectAssign:{
+            type:Boolean,
+            value:false
+        },
+
+        scope:{
+            type:String,
+            value:null
+        },
+
+        data:{
+            type:String,
+            value:null
+        }
+
+    };
+
+    Elliptical.ObservableBehavior._viewBag=function(){
+        var $$=window.$$;
+        if($$){
+            if($$.elliptical)return $$.elliptical.context;
+            else{
+                return null;
+            }
+        }else{
+            return null;
+        }
+    };
+
+    Elliptical.ObservableBehavior._setOptions=function(){
+        var idProp=this.getAttribute('id-prop');
+        var scopeBind=this.getAttribute('scope-bind');
+        var objectAssign=this.getAttribute('object-assign');
+        var scope=this.getAttribute('scope');
+        var data=this.getAttribute('data');
+        if(idProp){
+            this.idProp=idProp;
+        }
+        if(scopeBind){
+            this.scopeBind=(scopeBind=='true');
+        }
+        if(objectAssign){
+            this.objectAssign=(objectAssign=='true');
+        }
+        if(scope){
+            this.scope=scope;
+        }
+        if(data){
+            this.data=data;
+        }
+    };
+
+    Elliptical.ObservableBehavior.__setScope=function(){
+        var data=this.data;
+        if(data) return;
+        var context=this._viewBag();
+        var scopeProp=this.scope;
+        this.$viewBag=context;
+        if(this.$scope && scopeProp && context){
+            if(this.objectAssign) this.$scope=context[scopeProp];
+            else{
+                this.$scope[scopeProp]=context[scopeProp];
+            }
+        }
+    };
+
+    Elliptical.ObservableBehavior.created=function(){
+        this.element=$(this);
+        this._createDataStore();
+        this._delegateEventListener();
+        this._setOptionsFromAttribute();
+        this._setChildrenAttributes();
+        var $cache=this.$cache();
+        this._data.set('$cache',$cache);
+        this._data.set('subscriptions',[]);
+        this._subscriptions();
+        this._setOptions();
+        this._initScopeElement();
+        this._initTemplateElement();
+        this.__setScope();
+    };
+
+    Elliptical.ObservableBehavior.detached=function(){
+        this._disposeEventListener();
+        this._disposeCache();
+        this._disposePubSub();
+        this._disposeScope();
+        this._disposeTemplate();
+    };
+
+
+</script>

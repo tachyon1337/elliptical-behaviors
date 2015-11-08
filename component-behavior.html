@@ -1,0 +1,72 @@
+<script src="bundle/elliptical.boot.js"></script>
+<script src="bundle/elliptical.utils.js"></script>
+<script src="bundle/elliptical.event.js"></script>
+<script src="bundle/elliptical.container.js"></script>
+<script src="bundle/dust.js"></script>
+<script src="bundle/mutation-summary.js"></script>
+<script src="bundle/moment.js"></script>
+<script src="bundle/jquery.js"></script>
+<script src="bundle/observable.component.js"></script>
+<link rel="stylesheet" href="bundle/styles.css">
+<script>
+    //Base Component Behavior
+    Elliptical.ComponentBehavior={};
+    Object.assign(Elliptical.ComponentBehavior,elliptical.extensions.base);
+    Elliptical.ComponentBehavior._createDataStore=function(){
+        this._data={
+            _store:new Map(),
+            get:function(key){
+                return this._store.get(key);
+            },
+            set:function(key,val){
+                this._store.set(key,val);
+            },
+            click:'touchclick',
+            hover:'touchhover'
+        };
+    };
+
+    //use click-event instead of on-click to avoid conflicts
+    Elliptical.ComponentBehavior._delegateEventListener=function(){
+        this.element.on(this._data.click,'[click-event]',this._listenerCallback.bind(this));
+    };
+
+    Elliptical.ComponentBehavior._listenerCallback=function(event){
+        var target=$(event.currentTarget);
+        var fn=target.attr('click-event');
+        if(fn){
+            if(this[fn]){
+                this[fn](event);
+            }
+        }
+    };
+
+    Elliptical.ComponentBehavior._disposeEventListener=function(){
+        this.element.off(this._data.click,'[click-event]');
+    };
+
+
+    Elliptical.ComponentBehavior.service=function(name){
+        if(name===undefined){
+            name=this.service;
+        }
+        return elliptical.container.getType(name);
+    };
+
+    Elliptical.ComponentBehavior.created=function(){
+        this.element=$(this);
+        this._createDataStore();
+        this._delegateEventListener();
+        this._setOptionsFromAttribute();
+        this._setChildrenAttributes();
+    };
+
+    Elliptical.ComponentBehavior.detached=function(){
+        this._disposeEventListener();
+    };
+
+    //Navigation Behavior
+    Elliptical.NavigationBehavior={};
+    Object.assign(Elliptical.NavigationBehavior,elliptical.extensions.drawer,elliptical.extensions.navigation);
+
+</script>

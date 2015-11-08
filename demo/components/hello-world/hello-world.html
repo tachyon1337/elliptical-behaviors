@@ -1,0 +1,22 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="hello-world">
+    <style>
+       :host h3{
+           color:blue;
+       }
+    </style>
+    <template>
+        <h3 on-click="handleClick">Hello, World</h3>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'hello-world',
+        handleClick:function(event){
+            console.log(event);
+        }
+
+    });
+
+</script>

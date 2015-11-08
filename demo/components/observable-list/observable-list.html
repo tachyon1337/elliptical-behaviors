@@ -1,0 +1,48 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../elliptical-behaviors/observable-behavior.html">
+<style>
+    observable-list{
+        display:flex;
+        flex-direction:column;
+    }
+    observable-list>li{
+        display:flex;
+        width:100%;
+        margin:1em 0;
+
+    }
+</style>
+<dom-module id="observable-list">
+    <template>
+      <content></content>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'observable-list',
+        behaviors: [
+            Elliptical.ObservableBehavior
+        ],
+        ready:function(){
+            var arr=[
+                {name:'Bob Jackson',address:'7700 East Ave'},
+                {name:'Steve Wright',address:'9300 West Blvd'},
+                {name:'George Carlin',address:'14000 Kingsw Drive'}
+            ];
+
+            this.$scope.accounts=arr;
+        },
+
+        onClick:function(event){
+            var target=$(event.currentTarget);
+            var index=target.attr('data-index');
+            this.$scope.accounts.splice(index,1);
+            this._rebind();
+        },
+
+        _onScopeChange:function(result){
+            console.log(result);
+        }
+    });
+
+</script>

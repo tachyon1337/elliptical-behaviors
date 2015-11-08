@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="scripts/webcomponents-lite.js"></script>
+
+    <style>
+        body{
+            margin:2em 3em;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <link rel="import" href="components/observable-list/observable-list.html">
+    <link rel="import" href="components/paper-button/paper-button.html">
+    <link rel="import" href="components/hello-world/hello-world.html">
+    <link rel="import" href="components/profile-template/profile-template.html">
+
+    <script>
+        var address={
+            name:'Melissa Johnson',
+            street:'1800 West Dr',
+            city:'Charlotte',
+            state:'NC',
+            zip:88980,
+            phone:'555-555-0000'
+        };
+        Elliptical.context.set('address',address);
+    </script>
+
+    <hello-world></hello-world>
+    <observable-list template>
+      {#accounts}
+          <li>Name: <input data-bind="value:accounts.{$0}.name" value="{name}">&nbsp;&nbsp;<span data-index="{$0}" style="cursor:pointer;" click-event="onClick">remove</span></li>
+      {/accounts}
+    </observable-list>
+
+    <profile-template scope="address" object-assign="true"></profile-template>
+
+    <profile-template
+            data='{"name":"Brad Thompson","street":"63289 Arlington Road"}'>
+    </profile-template>
+
+</section>
+
+</body>
+</html>
