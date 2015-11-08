@@ -28,6 +28,11 @@
         data:{
             type:String,
             value:null
+        },
+
+        scopeSetterDelay:{
+            type:Number,
+            value:300
         }
 
     };
@@ -49,6 +54,7 @@
         var scopeBind=this.getAttribute('scope-bind');
         var objectAssign=this.getAttribute('object-assign');
         var scope=this.getAttribute('scope');
+        var scopeSetterDelay=this.getAttribute('scope-setter-delay');
         var data=this.getAttribute('data');
         if(idProp){
             this.idProp=idProp;
@@ -64,6 +70,9 @@
         }
         if(data){
             this.data=data;
+        }
+        if(scopeSetterDelay){
+            this.scopeSetterDelay=scopeSetterDelay;
         }
     };
 

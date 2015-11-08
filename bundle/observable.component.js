@@ -8667,7 +8667,7 @@
          */
         _unbindSubscriptions:function(){
             var subscriptions=this._data.get('subscriptions');
-            subscriptions.forEach(function(channel,fn){
+            subscriptions.forEach(function(fn,channel){
                 Event.off(channel,fn);
             });
         },
@@ -8914,9 +8914,7 @@
          */
         _scopeSetter: function (prop, value, obj) {
             var delay=(this.options) ? this.options.scopeSetterDelay : this.scopeSetterDelay;
-            if(delay===undefined){
-                delay=300;
-            }
+            if(delay===undefined)delay=300;
             var polyfilled = (window.__observePolyfill !== undefined);
             var $scope = this.$scope;
             if (typeof obj === 'undefined') {
