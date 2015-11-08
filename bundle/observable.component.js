@@ -4715,6 +4715,10 @@
             }
         },
 
+        _templateExists:function(templateId){
+            return (dust.cache[templateId]!==undefined);
+        },
+
         _render:function(node,templateId,context,callback){
             this._verifyTemplateExists(templateId);
             dust.render(templateId, context, function (err, out) {
