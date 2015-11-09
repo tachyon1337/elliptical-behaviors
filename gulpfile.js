@@ -2,10 +2,12 @@ var gulp=require('gulp'),
     fs = require('fs-extra'),
     concat=require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    BUILD_JSON=require('./build.json'),
     REPO_NAME='elliptical-behaviors',
-    BUNDLE='./bundle',
-    DIST='./dist';
+    WEB_COMPONENTS='./dist/webcomponents-lite.js',
+    BOOTSTRAP='./dist/elliptical.boot.js',
+    BOWER='./bower_components',
+    BOWER_EB='./bower_components/elliptical-behaviors',
+    BOWER_EB_DIST='./bower_components/elliptical-behaviors/dist';
 
 
 gulp.task('default',function(){
@@ -13,42 +15,24 @@ gulp.task('default',function(){
 });
 
 gulp.task('build',function(){
-    fileStream(BUILD_JSON,BUNDLE)
+   console.log('build not enabled...')
 });
 
 gulp.task('demo',function(){
-    fileStream('./bower_components/**/*.*','./demo/components');
-    fileStream('./bundle/**/*.*','./demo/components/elliptical-behaviors/bundle');
-    fileStream('./component-behavior.html','./demo/components/elliptical-behaviors');
-    fileStream('./observable-behavior.html','./demo/components/elliptical-behaviors');
-    fileStream('./dist/webcomponents-lite.js','./demo/scripts');
+    fileStream('./demo/hello-world/**/*.*',BOWER + '/hello-world');
+    fileStream('./demo/profile-template/**/*.*',BOWER + '/profile-template');
+    fileStream('./demo/observable-list/**/*.*',BOWER + '/observable-list');
+    fileStream('./component-behavior.html',BOWER_EB);
+    fileStream('./observable-behavior.html',BOWER_EB);
+    fileStream(BOOTSTRAP,BOWER_EB_DIST);
+    fileStream(WEB_COMPONENTS,BOWER_EB_DIST);
 });
 
-function srcStream(src){
-    if(src===undefined) src=BUILD_JSON;
-    return gulp.src(src);
-}
 
-function concatStream(name,src){
-    if(src===undefined) src=BUILD_JSON;
-    return srcStream(src)
-        .pipe(concat(name))
-}
+
 
 function fileStream(src,dest){
     gulp.src(src)
         .pipe(gulp.dest(dest));
 }
 
-function concatFileStream(src,dest,name){
-    gulp.src(src)
-        .pipe(concat(name))
-        .pipe(gulp.dest(dest));
-}
-
-function minFileStream(src,dest,name){
-    gulp.src(src)
-        .pipe(concat(name))
-        .pipe(uglify())
-        .pipe(gulp.dest(dest));
-}
