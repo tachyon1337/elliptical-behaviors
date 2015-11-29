@@ -1,6 +1,10 @@
 Elliptical behaviors for Polymer components
 ===========================
 
+# NOTICE
+
+This repo is now deprecated. The project has moved to https://github.com/ellipticaljs/polymer-behaviors
+
 # Installation
 
 ##bower
